@@ -1,9 +1,95 @@
 /** Create mock data */
-const movieTitles = ['Squirrel Man', 'Roht: Korangar', 'Revengers: Short Battle', 'Doctor Familiar', 'Guardians of Wu Dao Kou'];
-const actorFirst = ['Jenna', 'Steve', 'John', 'Rainn', 'Angela', 'Ed', 'Mindy', 'BJ', 'Brian', 'Ellie', 'Phyllis', 'Leslie', 'Oscar', 'Kate', 'Creed', 'Paul', 'Craig', 'Melora', 'Rashida'];
-const actorLast = ['Fischer', 'Carell', 'Krasinski', 'Wilson', 'Kinsey', 'Helms', 'Kaling', 'Novak', 'Baumgartner', 'Kemper', 'Smith', 'Baker', 'Nunez', 'Flannery', 'Bratton', 'Lieberstein', 'Robinson', 'Hardin', 'Jones'];
-const characterFirst = ['Pam', 'Michael', 'Jim', 'Dwight', 'Angela', 'Andy', 'Kelly', 'Ryan', 'Kevin', 'Erin', 'Phyllis', 'Stanley', 'Oscar', 'Meredith', 'Creed', 'Toby', 'Darryl', 'Jan', 'Karen'];
-const characterLast = ['Beesly', 'Scott', 'Halpert', 'Schrute', 'Martin', 'Bernard', 'Kapoor', 'Howard', 'Malone', 'Hannon', 'Vance', 'Hudson', 'Martinez', 'Palmer', 'Bratton', 'Flenderson', 'Philbin', 'Levison', 'Filippelli'];
+const movieTitles = [
+  'Squirrel Man',
+  'Roht: Korangar',
+  'Revengers: Short Battle',
+  'Doctor Familiar',
+  'Guardians of Wu Dao Kou'
+];
+const actorFirst = [
+  'Jenna',
+  'Steve',
+  'John',
+  'Rainn',
+  'Angela',
+  'Ed',
+  'Mindy',
+  'BJ',
+  'Brian',
+  'Ellie',
+  'Phyllis',
+  'Leslie',
+  'Oscar',
+  'Kate',
+  'Creed',
+  'Paul',
+  'Craig',
+  'Melora',
+  'Rashida'
+];
+const actorLast = [
+  'Fischer',
+  'Carell',
+  'Krasinski',
+  'Wilson',
+  'Kinsey',
+  'Helms',
+  'Kaling',
+  'Novak',
+  'Baumgartner',
+  'Kemper',
+  'Smith',
+  'Baker',
+  'Nunez',
+  'Flannery',
+  'Bratton',
+  'Lieberstein',
+  'Robinson',
+  'Hardin',
+  'Jones'
+];
+const characterFirst = [
+  'Pam',
+  'Michael',
+  'Jim',
+  'Dwight',
+  'Angela',
+  'Andy',
+  'Kelly',
+  'Ryan',
+  'Kevin',
+  'Erin',
+  'Phyllis',
+  'Stanley',
+  'Oscar',
+  'Meredith',
+  'Creed',
+  'Toby',
+  'Darryl',
+  'Jan',
+  'Karen'
+];
+const characterLast = [
+  'Beesly',
+  'Scott',
+  'Halpert',
+  'Schrute',
+  'Martin',
+  'Bernard',
+  'Kapoor',
+  'Howard',
+  'Malone',
+  'Hannon',
+  'Vance',
+  'Hudson',
+  'Martinez',
+  'Palmer',
+  'Bratton',
+  'Flenderson',
+  'Philbin',
+  'Levison',
+  'Filippelli'
+];
 
 function getRandomInt(max, min) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -12,9 +98,16 @@ function getRandomInt(max, min) {
 let castId = 1;
 function Cast() {
   this.castId = castId;
-  this.actor = `${actorFirst[getRandomInt(actorFirst.length - 1, 0)]} ${actorLast[getRandomInt(actorLast.length - 1, 0)]}`;
-  this.character = `${characterFirst[getRandomInt(characterFirst.length - 1, 0)]} ${characterLast[getRandomInt(characterLast.length - 1, 0)]}`;
-  this.imageUrl = `https://castphotos.s3-us-west-1.amazonaws.com/${getRandomInt(40, 0)}.png`;
+  this.actor = `${actorFirst[getRandomInt(actorFirst.length - 1, 0)]} ${
+    actorLast[getRandomInt(actorLast.length - 1, 0)]
+  }`;
+  this.character = `${
+    characterFirst[getRandomInt(characterFirst.length - 1, 0)]
+  } ${characterLast[getRandomInt(characterLast.length - 1, 0)]}`;
+  this.imageUrl = `https://castphotos.s3-us-west-1.amazonaws.com/${getRandomInt(
+    40,
+    0
+  )}.png`;
   this.role = getRandomInt(3, 1);
   castId += 1;
 }
@@ -22,7 +115,7 @@ function Cast() {
 let movieId = 1;
 function Movie() {
   this.movieId = movieId;
-  this.title = movieTitles[movieId - 1];
+  this.movieName = movieTitles[movieId - 1];
   this.casts = [];
   movieId += 1;
 }
@@ -52,7 +145,7 @@ const mongoose = require('mongoose');
 Console.log('Seed file is running');
 
 db.MovieModel.insertMany(movieData, (err, _docs) => {
-  if (err) console.error('can\'t add movie data -->', err);
+  if (err) console.error("can't add movie data -->", err);
   else {
     Console.log('added movie data');
     mongoose.disconnect();
