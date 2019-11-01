@@ -5,13 +5,13 @@ mongoose.set('useCreateIndex', true);
 
 mongoose
   .connect(process.env.MONGODB_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+    useNewUrlParser: true
+    // useUnifiedTopology: true
   })
   .catch(err => console.error(err));
 
 const MovieSchema = new mongoose.Schema({
-  movieId: { type: Number, unique: true },
+  movieId: { type: Number, unique: false },
   movieName: String,
   casts: Array
 });
