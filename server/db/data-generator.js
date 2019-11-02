@@ -16,10 +16,10 @@ const movieCSV = fs.createWriteStream(
 
 const generator = () => {
   (async () => {
-    movieCSV.write('movie_id,cast_id, actor, character, image_url, role\n');
-    for (var i = 0; i < generated; i++) {
+    movieCSV.write('movie_id,cast_id,actor,character,image_url,role\n');
+    for (var i = 0; i < generated; i += 1) {
       if (i % 24 === 0) {
-        movieIdCounter++;
+        movieIdCounter += 1;
         castIdCounter = -1;
       }
       castIdCounter++;
