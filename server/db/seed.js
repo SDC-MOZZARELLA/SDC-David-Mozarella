@@ -1,4 +1,5 @@
 /** Create mock data */
+
 const movieTitles = [
   'Squirrel Man',
   'Roht: Korangar',
@@ -115,7 +116,7 @@ function Cast() {
 let movieId = 1;
 function Movie() {
   this.movieId = movieId;
-  this.movieName = movieTitles[movieId - 1];
+  this.movieName = movieTitles[getRandomInt(movieTitles.length - 1, 0)];
   this.casts = [];
   movieId += 1;
 }
@@ -123,7 +124,7 @@ function Movie() {
 function populateMovieData() {
   const movieData = [];
 
-  for (let i = 0; i < movieTitles.length; i += 1) {
+  for (let i = 0; i < 1000; i += 1) {
     const someMovie = new Movie();
     for (let k = 0; k < getRandomInt(30, 20); k += 1) {
       const someCast = new Cast();
@@ -147,7 +148,6 @@ Console.log('Seed file is running');
 db.MovieModel.insertMany(movieData, (err, _docs) => {
   if (err) console.error("can't add movie data -->", err);
   else {
-    Console.log('added movie data');
     mongoose.disconnect();
     Console.log('connection closed');
   }
