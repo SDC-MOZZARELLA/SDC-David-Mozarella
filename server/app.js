@@ -1,16 +1,18 @@
+require('newrelic');
 const express = require('express');
 const bodyParser = require('body-parser');
-const morgan = require('morgan');
+// const morgan = require('morgan');
 const cors = require('cors');
-const db = require('./db');
+// const db = require('./db');
 const pool = require('./postgreSQL/connection.js');
+
 
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(morgan('tiny'));
+// app.use(morgan('tiny'));
 app.use(express.static('public'));
 
 // app.get('/api/movie', (req, res) => {
@@ -52,11 +54,11 @@ app.use(express.static('public'));
 
 app.get('/api/movie', (req, res, next) => {
   const { id } = req.query;
-  pool.query(`SELECT * FROM movies WHERE movie_id = ${id};`, (err, results) => {
+  pool.query(`SELECT movies.character, actor.actor, actor.image_url, actor.role FROM movies INNER JOIN characters_actors ON movies.character_id = characters_actors.character_id INNER JOIN actor ON characters_actors.actor_id = actor.actor_id WHERE movies.movie_id = ${id ? id : 1 };`, (err, results) => {
     if (err) {
       res.sendStatus(404);
     } else {
-      res.status(200).send(results);
+      res.status(200).json(results.rows);
     }
   });
 });

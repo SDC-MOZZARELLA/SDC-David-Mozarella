@@ -1,0 +1,20 @@
+create keyspace movies
+with replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
+
+TRACING ON === timestamps
+
+use movies;
+create table movies (
+  movie_id INT,
+  cast_id TEXT,
+  actor TEXT,
+  character TEXT,
+  image_url TEXT,
+  role INT,
+  PRIMARY KEY(movie_id, cast_id)
+  );
+
+COPY movies (movie_id, cast_id, actor, character, image_url, role) FROM '/Users/dfuent/Desktop/SDC MODULE/castphotos/movies.csv' WITH DELIMITER=',' AND HEADER=TRUE;
+
+
+
