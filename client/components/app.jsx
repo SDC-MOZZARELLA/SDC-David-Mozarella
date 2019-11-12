@@ -2,8 +2,16 @@ import React from 'react';
 import $ from 'jquery';
 import CastPhotos from './castPhotos.jsx';
 import styled from 'styled-components';
-import { GlobalStyle, CastWrapper, CastSection, CastHeader, CastViewAll, CastArrowDown, CastArrowUp, ErrorMessage} from '../styled.js';
-
+import {
+  GlobalStyle,
+  CastWrapper,
+  CastSection,
+  CastHeader,
+  CastViewAll,
+  CastArrowDown,
+  CastArrowUp,
+  ErrorMessage
+} from '../styled.js';
 
 class App extends React.Component {
   constructor() {
@@ -17,45 +25,50 @@ class App extends React.Component {
     this.showAll = this.showAll.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.fetch();
   }
 
   fetch() {
     let id = window.location.search.slice(4) || 1;
     $.get({
-      url: `/api/movie`,
-      data: {id: id},
-      success: (res) => {
+      url: `http://localhost:5050/api/movie`,
+      data: { id: id },
+      success: res => {
         console.log(res);
-        this.setState({casts: res});
+        this.setState({ casts: res });
       },
-      error: (err) => {
+      error: err => {
         console.log(err);
-        this.setState({error: true})
+        this.setState({ error: true });
       }
-    })
+    });
   }
 
-  showAll(){
-    this.setState({ viewAll: !this.state.viewAll});
+  showAll() {
+    this.setState({ viewAll: !this.state.viewAll });
   }
-
 
   render() {
     if (this.state.error) {
-      return (
-        <ErrorMessage>
-            Oops, this movie doesn't exist.
-        </ErrorMessage>
-      )
+      return <ErrorMessage>Oops, this movie doesn't exist.</ErrorMessage>;
     }
 
     let viewAllOrLess;
     if (!this.state.viewAll) {
-      viewAllOrLess = <CastViewAll onClick={this.showAll}><span>View All</span><CastArrowDown></CastArrowDown></CastViewAll>
+      viewAllOrLess = (
+        <CastViewAll onClick={this.showAll}>
+          <span>View All</span>
+          <CastArrowDown></CastArrowDown>
+        </CastViewAll>
+      );
     } else {
-      viewAllOrLess = <CastViewAll onClick={this.showAll}><span>View Less</span><CastArrowUp></CastArrowUp></CastViewAll>
+      viewAllOrLess = (
+        <CastViewAll onClick={this.showAll}>
+          <span>View Less</span>
+          <CastArrowUp></CastArrowUp>
+        </CastViewAll>
+      );
     }
 
     return (
@@ -67,7 +80,7 @@ class App extends React.Component {
           {viewAllOrLess}
         </CastSection>
       </CastWrapper>
-    )
+    );
   }
 }
 

@@ -4,3 +4,6 @@ public/bundle.js
 Administrator-key-pair-uswest1
 coverage
 movies.csv
+moviesTable.csv
+junctionTable.csv
+castsTable.csv

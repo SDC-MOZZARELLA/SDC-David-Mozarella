@@ -14,10 +14,12 @@
   "scripts": {
     "test": "jest --detectOpenHandles --watch --collectCoverage",
     "seed": "node server/db/seed.js",
+    "generator": "node --max-old-space-size=8192 server/db/data-generator.js",
     "start": "nodemon server/index.js",
     "build-dev": "webpack -p --watch",
     "build": "webpack -p",
-    "docker-build": "npm run build && npm run seed && npm start"
+    "docker-build": "npm run build && npm run seed && npm start",
+    "k6": "k6 run k6-script.js"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -29,6 +31,7 @@
     "jquery": "^3.4.1",
     "mongoose": "^5.7.4",
     "morgan": "^1.9.1",
+    "newrelic": "^6.1.0",
     "nodemon": "^1.19.3",
     "pg": "^7.12.1",
     "react": "^16.10.2",
